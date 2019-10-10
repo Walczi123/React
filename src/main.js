@@ -1,5 +1,5 @@
 import React from 'react'
 import { render } from 'react-dom'
-import MyApp from './MyApp'
+import MyApp  from './MyApp'
 
 render(<MyApp />, document.getElementById('reactinjectedhere'))
