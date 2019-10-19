@@ -109,9 +109,9 @@ function oldStudents(){
 } 
 
 
-const MyApp = () => (
+const MyAppLab1 = () => (
   <div>
-    <h3>Minimal React  walczakp</h3>
+    <h3>Minimal React  walczakp Lab1</h3>
     <p>Bundle size: 62 bytes, Load time of the bundle: 32 ms, Last commit SHA1: 2b5414f951499ebad32b0f68a526c69d2d4c1c</p>  
     <ul>
       <li>Ex2. Generate an array of integers from 1 to 7</li>
@@ -128,8 +128,8 @@ const MyApp = () => (
     <button onClick={sortedStudents}>Sort Students</button>
       <ul id="sortedStudentsData"></ul>
     <button onClick={oldStudents}>Old students</button>
-      <ul id="oldStudentsData"></ul>    
+      <ul id="oldStudentsData"></ul>   
     </div>      
 )
-export default MyApp
+export default MyAppLab1
 
