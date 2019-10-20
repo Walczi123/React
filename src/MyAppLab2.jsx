@@ -1,22 +1,38 @@
 import React from 'react'
 import { isNumber } from 'util';
 
+const generateArray = (l) =>(Array.from({length: l}, (v,k) => k+1))
+
 class MyAppLab2 extends React.Component {
     constructor(props) {
       super(props);
-      this.state = {a:'',b:''};
+      this.state = {a:0,b:0,array:[]};
       this.handleChangeA = this.handleChangeA.bind(this);
       this.handleChangeB = this.handleChangeB.bind(this);
     }
   
     handleChangeA(event) {   
-      console.info("Value changed a: "+event.target.value);
-      this.setState({a: event.target.value });
+      let a =event.target.value;
+      console.log("Value changed a: "+a);
+      this.setState({a: a});
+      a=parseInt(a);
+      if((this.state.b>a)&&(a>0)){
+        this.setState({array: generateArray(this.state.b-1).filter(element => element>a)});
+      }else{
+        this.setState({array: []});
+      }
     }
 
     handleChangeB(event) {   
-      console.info("Value changed b: "+event.target.value);
-      this.setState({b: event.target.value });
+      let b =event.target.value;
+      console.log("Value changed b: "+b);
+      this.setState({b: b });
+      b=parseInt(b);
+      if((b>this.state.a)&&(this.state.a>0)){
+        this.setState({array: generateArray(b-1).filter(element => element>this.state.a)});
+      }else{
+        this.setState({array: []});
+      }
     }
   
     render() {
@@ -35,6 +51,7 @@ class MyAppLab2 extends React.Component {
             <input type='number' placeholder=" type a value" onChange={this.handleChangeB} />
           </label>
         </form>
+        <ul>{this.state.array.map(element => <li>{element}</li>)}</ul>
         </div>
       );
     }
