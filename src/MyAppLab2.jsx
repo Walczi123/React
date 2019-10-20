@@ -9,6 +9,7 @@ class MyAppLab2 extends React.Component {
       this.state = {a:0,b:0,array:[]};
       this.handleChangeA = this.handleChangeA.bind(this);
       this.handleChangeB = this.handleChangeB.bind(this);
+      this.counter = 1;
     }
   
     handleChangeA(event) {   
@@ -36,7 +37,8 @@ class MyAppLab2 extends React.Component {
     }
   
     render() {
-      return (
+      console.time("render - "+this.counter.toString())
+      let html=(
         <div>
         <h3>Minimal React  walczakp Lab2</h3>
         <form>
@@ -54,6 +56,9 @@ class MyAppLab2 extends React.Component {
         <ul>{this.state.array.map(element => <li>{element}</li>)}</ul>
         </div>
       );
+      console.timeEnd("render - "+this.counter.toString())
+      this.counter++;
+      return html;
     }
   }
 export default MyAppLab2
