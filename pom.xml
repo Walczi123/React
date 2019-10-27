@@ -64,6 +64,17 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<profiles>
+						<id>dev</id>
+						<activation>
+							<activeByDefault>true</activeByDefault>
+						</activation>
+						<properties>
+							<spring.profiles.active>dev</spring.profiles.active>
+						</properties>
+					</profiles>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
