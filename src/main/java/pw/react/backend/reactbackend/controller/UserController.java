@@ -29,7 +29,8 @@ public class UserController {
 			result = userService.findByLogin(login);
 		else
 			result = userService.findAll();
-		if (result == null) {
+			if(result.isEmpty())result=null;
+		if (result == null ) {
 			throw new UserNotFoundException("Login: " + login);
 		}
 		return ResponseEntity.ok(result);
