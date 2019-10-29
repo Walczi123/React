@@ -63,6 +63,12 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-api</artifactId>
+			<version>5.0.0-M4</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
 			<groupId>org.assertj</groupId>
 			<artifactId>assertj-core</artifactId>
 			<!-- use 2.9.1 for Java 7 projects -->
@@ -91,6 +97,7 @@
 				<configuration>
 					<profiles>
 						<profile>dev</profile>
+						<profile>it</profile>
 					</profiles>
 				</configuration>
 			</plugin>

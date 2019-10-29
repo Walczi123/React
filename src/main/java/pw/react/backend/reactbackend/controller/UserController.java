@@ -31,7 +31,7 @@ public class UserController {
 			result = userService.findByLogin(login);
 		else
 			result = userService.findAll();
-			if(result.isEmpty())result=null;
+			//if(result.isEmpty())result=null;
 		if (result == null ) {
 			throw new UserNotFoundException("Login: " + login);
 		}
@@ -85,7 +85,7 @@ public class UserController {
 	@ExceptionHandler({UserAlreadyExistsException.class})
 	public ResponseEntity<ErrorResponse> alreadyExists(UserAlreadyExistsException ex) {
 		return new ResponseEntity<>(
-				new ErrorResponse(ex.getMessage(), HttpStatus.BAD_REQUEST.value()),
+				new ErrorResponse(ex.getMessage(), HttpStatus.BAD_REQUEST.value(),"The user already exists"),
 				HttpStatus.BAD_REQUEST);
 	}
 
