@@ -11,13 +11,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
-import pw.react.backend.reactbackend.controller.UserController;
+import pw.react.backend.reactbackend.controllers.UserController;
 import pw.react.backend.reactbackend.errors.ErrorResponse;
 import pw.react.backend.reactbackend.errors.UserAlreadyExistsException;
 import pw.react.backend.reactbackend.errors.UserNotFoundException;
-import pw.react.backend.reactbackend.model.User;
-import pw.react.backend.reactbackend.repository.UserRepository;
-import pw.react.backend.reactbackend.service.UserService;
+import pw.react.backend.reactbackend.models.User;
+import pw.react.backend.reactbackend.repositories.UserRepository;
+import pw.react.backend.reactbackend.services.UserService;
 
 import java.time.LocalDate;
 import java.util.*;

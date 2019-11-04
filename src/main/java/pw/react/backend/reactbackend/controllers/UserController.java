@@ -1,4 +1,4 @@
-package pw.react.backend.reactbackend.controller;
+package pw.react.backend.reactbackend.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import pw.react.backend.reactbackend.errors.ErrorResponse;
 import pw.react.backend.reactbackend.errors.UserAlreadyExistsException;
 import pw.react.backend.reactbackend.errors.UserNotFoundException;
-import pw.react.backend.reactbackend.model.User;
-import pw.react.backend.reactbackend.service.UserService;
+import pw.react.backend.reactbackend.models.User;
+import pw.react.backend.reactbackend.services.UserService;
 
 import javax.validation.Valid;
 import java.util.HashMap;
@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
+@RequestMapping(path = "/users")
 public class UserController {
 	private UserService userService;
 
@@ -24,7 +25,7 @@ public class UserController {
 		this.userService = userService;
 	}
 
-	@GetMapping("/user")
+	@GetMapping("")
 	public ResponseEntity<List<User>> getUsers(@RequestParam(required = false) String login) {
 		List<User> result;
 		if (login != null && login.length() > 0)
@@ -38,7 +39,7 @@ public class UserController {
 		return ResponseEntity.ok(result);
 	}
 
-	@GetMapping("/user/{id}")
+	@GetMapping("/{id}")
 	public ResponseEntity<User> getUser(@PathVariable(value = "id") int id) {
 		User result = userService.findById(id);
 		if (result == null) {
@@ -47,7 +48,7 @@ public class UserController {
 		return ResponseEntity.ok(result);
 	}
 
-	@PostMapping("/user/")
+	@PostMapping("")
 	public ResponseEntity<User> createUser(@Valid @RequestBody User user) {
 		if (userService.exists(user)) {
 			throw new UserAlreadyExistsException("Login: " + user.getLogin());
@@ -56,7 +57,7 @@ public class UserController {
 		return ResponseEntity.ok(result);
 	}
 
-	@PutMapping("/user/{id}")
+	@PutMapping("/{id}")
 	public ResponseEntity<User> updateUser(@PathVariable(value = "id") int id, @Valid @RequestBody User user) {
 		User userToUpdate = userService.findById(id);
 		if (userToUpdate == null) {
@@ -68,7 +69,7 @@ public class UserController {
 		return ResponseEntity.ok(updatedUser);
 	}
 
-	@DeleteMapping("/user/{id}")
+	@DeleteMapping("/{id}")
 	public ResponseEntity<Map<String, Boolean>> deleteUser(@PathVariable(value = "id") int id) {
 		User userToDelete = userService.findById(id);
 		if (userToDelete == null) {

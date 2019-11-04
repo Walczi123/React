@@ -1,10 +1,9 @@
-package pw.react.backend.reactbackend.controller;
+package pw.react.backend.reactbackend.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,17 +11,15 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import pw.react.backend.reactbackend.model.User;
-import pw.react.backend.reactbackend.repository.UserRepository;
-import pw.react.backend.reactbackend.service.UserService;
+import pw.react.backend.reactbackend.models.User;
+import pw.react.backend.reactbackend.repositories.UserRepository;
+import pw.react.backend.reactbackend.services.UserService;
 
 import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.containsString;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;

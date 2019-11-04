@@ -1,9 +1,9 @@
-package pw.react.backend.reactbackend.service;
+package pw.react.backend.reactbackend.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pw.react.backend.reactbackend.model.User;
-import pw.react.backend.reactbackend.repository.UserRepository;
+import pw.react.backend.reactbackend.models.User;
+import pw.react.backend.reactbackend.repositories.UserRepository;
 
 import java.util.List;
 

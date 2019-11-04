@@ -1,4 +1,4 @@
-package pw.react.backend.reactbackend.model;
+package pw.react.backend.reactbackend.models;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -32,8 +32,6 @@ public class User implements Serializable {
 	@Column(name = "is_active", nullable = false)
 	private boolean isActive;
 
-	public User() {}
-
 	public User(String login, String firstName, String lastName, LocalDate dateOfBirth, boolean isActive) {
 		this.firstName=firstName;
 		this.lastName=lastName;
@@ -49,6 +47,8 @@ public class User implements Serializable {
 		setDateOfBirth(LocalDateOfBirth);
 		setIsActive(isActive);
 	}
+
+	public User() {}
 
 	public int getId() {
 		return this.id;
