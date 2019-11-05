@@ -5,7 +5,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
@@ -20,26 +19,22 @@ import pw.react.backend.reactbackend.repositories.UserRepository;
 import pw.react.backend.reactbackend.services.UserService;
 
 import java.time.LocalDate;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.BDDAssertions.then;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.mockito.internal.verification.VerificationModeFactory.times;
 
 @SpringBootTest
 @ActiveProfiles("dev")
 @RunWith(MockitoJUnitRunner.class)
 public class ReactBackendApplicationTest {
-    private UserController userController;
-
-    @Spy
-    @InjectMocks
-    private UserService userService;
-
-    @Mock
-    private UserRepository userRepository;
-
     private static User[] users = {
             new User("login123", "Pawel", "Kowalski", LocalDate.of(2015, 12, 31), true),
             new User("login124", "Gawel", "Nowak", LocalDate.of(2013, 12, 31), false),
@@ -47,16 +42,39 @@ public class ReactBackendApplicationTest {
             new User("login126", "Marek", "Zawadka", LocalDate.of(2045, 12, 31), true),
             new User("login127", "Mariusz", "Zyla", LocalDate.of(2017, 12, 31), false)
     };
+    private UserController userController;
+    @InjectMocks
+    private UserService userService;
+    @Mock
+    private UserRepository userRepository;
+
     @Before
     public void setUp() {
         userController = new UserController(userService);
-
     }
-  /*
-    @Test
-    public void givenuserFromRepository_whenGetuserIsInvoked_thenReturnAlluser() {
-        given(userRepository.findAll()).willReturn(Arrays.asList(users));
 
+    @Test
+    public void givenExistingId_whenUpdateUser_theReturnUpdatedUser() {
+        given(userRepository.findById(1)).willReturn(users[0]);
+        User userToUpdate = users[0];
+        userToUpdate.setLogin("TestLogin");
+
+        User result = userService.update(1, userToUpdate);
+        assertThat(userRepository.findById(1)).isEqualTo(userToUpdate);
+        verify(userRepository, times(2)).findById(eq(1));
+        verify(userRepository, times(1)).save(eq(userToUpdate));
+    }
+
+    @Test(expected = UserNotFoundException.class)
+    public void givenNonExistingId_whenUpdateUser_theReturnUserNotFoundException() {
+        when(userService.update(1, new User())).thenThrow(UserNotFoundException.class);
+        verify(userRepository, times(1)).findById(eq(1));
+        verify(userRepository, times(0)).save(new User());
+    }
+
+    @Test
+    public void givenUserFromRepository_whenGetUserIsNull_thenReturnAllUser() {
+        given(userRepository.findAll()).willReturn(Arrays.asList(users));
         // when
         ResponseEntity<List<User>> response = userController.getUsers(null);
 
@@ -65,108 +83,43 @@ public class ReactBackendApplicationTest {
         then(response.getBody()).containsExactly(users);
     }
 
-    @Test
-    public void givenLogin_whenGetuserWithLoginIsInvoked_thenReturnUserWithProvidedLoign() {
-        // given
-        String login = users[users.length - 1].getLogin();
-        List<User> responseuser = Arrays.stream(users).filter(user -> user.getLogin().equals(login)).collect(Collectors.toList());
-        given(userRepository.findByLogin(login)).willReturn(responseuser);
-
-        // when
-        ResponseEntity<List<User>> response = userController.getUsers(login);
-
-        then(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-        then(response.getBody()).hasSize(1);
-        then(response.getBody()).containsExactly(responseuser.get(0));
-    }
-
-    @Test(expected = UserNotFoundException.class)
-    public void givenInvalidLogin_whenGetuserWithLoginIsInvoked_thenThrowException() {
-        // given
-        String login = "abba";
-        //System.console().printf(userRepository.findByLogin(login))
-        given(userRepository.findByLogin(login)).willReturn(null);
-
-        when(userController.getUsers(login)).
-                thenThrow(UserNotFoundException.class);
+    @Test(expected = UserAlreadyExistsException.class)
+    public void givenNewUserWithExistingLogin_whenCreateUserIsInvoked_thenThrowException() {
+        given(userRepository.findByLogin(users[2].getLogin())).willReturn(Collections.singletonList(users[2]));
+        when(userController.createUser(users[2])).thenThrow(UserAlreadyExistsException.class);
     }
 
     @Test
-    public void givenUserId_whenGetUserByIdIsInvoked_thenReturnUserWithGivenId() {
+    public void givenNewUser_whenCreateUser_thenReturnSavedUser() {
         // given
-        int id = users[users.length - 2].getId();
-        User responseUser = Arrays.stream(users).filter(user -> user.getId() == id).findFirst().get();
-        given(userRepository.findById(id)).willReturn(responseUser);
-
+        given(userRepository.findByLogin(users[2].getLogin())).willReturn(null);
+        given(userRepository.save(users[2])).willReturn(users[2]);
         // when
-        ResponseEntity<User> response = userController.getUser(id);
+        ResponseEntity<User> response = userController.createUser(users[2]);
 
         then(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-        then(response.getBody()).isEqualToComparingFieldByField(responseUser);
+        then(response.getBody()).isEqualToComparingFieldByField(users[2]);
     }
 
     @Test(expected = UserNotFoundException.class)
     public void givenInvalidUserId_whenGetUserByIdIsInvoked_thenThrowException() {
         // given
-        int id = -1;
-        given(userRepository.findById(id)).willReturn(null);
+        given(userRepository.findById(-1)).willReturn(null);
 
-        when(userController.getUser(id)).
-                thenThrow(UserNotFoundException.class);
+        when(userController.getUser(-1)).thenThrow(UserNotFoundException.class);
     }
-
 
     @Test
     public void givenNewUser_whenCreateUserIsInvoked_thenReturnSavedUser() {
         // given
-        User user = new User("login", "a", "b", LocalDate.of(2017, 12, 31),false);
-        given(userRepository.findByLogin("login")).willReturn(null);
-        given(userRepository.save(user)).willReturn(user);
+        given(userRepository.findByLogin(users[4].getLogin())).willReturn(null);
+        given(userRepository.save(users[4])).willReturn(users[4]);
 
         // when
-        ResponseEntity<User> response = userController.createUser(user);
+        ResponseEntity<User> response = userController.createUser(users[4]);
 
         then(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-        then(response.getBody()).isEqualToComparingFieldByField(user);
-    }
-
-    @Test(expected = UserAlreadyExistsException.class)
-    public void givenNewUserWithExistingLogin_whenCreateUserIsInvoked_thenThrowException() {
-        // given
-        User user = new User(users[2].getLogin(), "a", "b", LocalDate.of(2017, 12, 31),false);
-        given(userRepository.findByLogin(users[2].getLogin())).willReturn(Collections.singletonList(users[2]));
-
-        when(userController.createUser(user)).
-                thenThrow(UserAlreadyExistsException.class);
-    }
-
-    @Test
-    public void givenUpdatedUser_whenUpdateUserIsInvoked_thenReturnUpdatedUser() {
-        // given
-        User updatedUser = new User("login", users[0].getFirstName(), "b",users[0].getDateOfBirth(), false);
-        int id = users[0].getId();
-        updatedUser.setId(id);
-        given(userRepository.findById(id)).willReturn(users[0]);
-        given(userRepository.save(users[0])).willReturn(users[0]);
-
-        // when
-        ResponseEntity<User> response = userController.updateUser(id, updatedUser);
-
-        then(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-        then(response.getBody()).isEqualToComparingFieldByField(updatedUser);
-    }
-
-    @Test
-    public void givenUserId_whenDeleteUserIsInvoked_thenReturnValidResponse() {
-        // given
-        int id = users[1].getId();
-        given(userRepository.findById(id)).willReturn(users[1]);
-
-        // when
-        //ResponseEntity<Map<String, Boolean>> response = userController.deleteUser(id);
-
-        then(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-        then(response.getBody()).containsExactly(new AbstractMap.SimpleEntry<>("deleted", Boolean.TRUE));
+        then(response.getBody()).isEqualToComparingFieldByField(users[4]);
     }
 
     @Test
@@ -196,5 +149,16 @@ public class ReactBackendApplicationTest {
         then(body.getCode()).isEqualTo(HttpStatus.BAD_REQUEST.value());
     }
 
-   */
+    @Test
+    public void givenUserId_whenDeleteUserIsInvoked_thenReturnValidResponse() {
+        // given
+        given(userRepository.findById(users[1].getId())).willReturn(users[1]);
+
+        // when
+        ResponseEntity<User> response = userController.deleteUser(users[1].getId());
+
+        then(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        then(response.getBody()).isEqualToComparingFieldByField(users[1]);
+    }
+
 }
