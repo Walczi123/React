@@ -12,7 +12,10 @@ class PlayerOne extends React.Component {
             <b>PlayerOne</b><br/>
             <label>Name: {this.props.name}</label><br/>
             <label>Played number of times: 3</label><br/>
-            <button>Play</button>
+            <button type="button" onClick={() => {this.props.myClick(this.props.name)}}
+              disabled={this.props.playing ? "disable" : ""}>
+                {this.props.playing ? "The user is playing now" : "Play"}
+            </button>
         </div>
       )
     }
