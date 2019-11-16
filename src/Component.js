@@ -12,10 +12,15 @@ class Companies extends React.Component {
         };
         this.activeAdd = this.activeAdd.bind(this);
         this.cancelAdd = this.cancelAdd.bind(this);
+        this.componentGet = this.componentGet.bind(this);
       }
     
       componentDidMount() {
-        this.setState({ isLoading: true })
+        this.componentGet();
+      }
+
+      componentGet(){
+        this.setState({ isLoading:true});
         fetch('http://localhost:3004/employees')
         .then(response => response.json())
         .then(data => this.setState({ employees:data }))
@@ -39,7 +44,7 @@ class Companies extends React.Component {
             {this.state.add ? 
             <div>
               <br/>
-              <AddComponent cancelAdd={this.cancelAdd}/>
+              <AddComponent cancelAdd={this.cancelAdd} reload={this.componentGet}/>
             </div>
             :""
             }
