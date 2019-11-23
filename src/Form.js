@@ -7,8 +7,8 @@ class Form extends React.Component{
             age:'',
             email:'',
             phone:'',
-            validEmail:false,
-            validPhone:false
+            validEmail:true,
+            validPhone:true
         };
         this.changeAge=this.changeAge.bind(this);
         this.handleChange=this.handleChange.bind(this);
@@ -31,16 +31,16 @@ class Form extends React.Component{
         if(this.state.age >= 18){
             v = this.state.email.match(/^([\w.%+-]+)@([\w.%+-]+\.)+([\w.%+-]{2,})$/);
             if(v){
-                this.setState({validEmail : false});
-            }else{
                 this.setState({validEmail : true});
+            }else{
+                this.setState({validEmail : false});
             }
         }else{
             v = this.state.phone.match(/^[0-9]{9}$/i);
             if(v){
-                this.setState({validPhone : false});
-            }else{
                 this.setState({validPhone : true});
+            }else{
+                this.setState({validPhone : false});
             }
         }
     }
@@ -67,11 +67,11 @@ class Form extends React.Component{
                         <p>Parent Phone no:
                             <input style={{float:"right"}}
                                 name="phone"
-                                type="tel"
+                                type="phone"
                                 onChange={this.handleChange}
                             />
                         </p>
-                        {this.state.validPhone?<label style={{color:"red",float:"right"}}>"Validation error!"</label>:null}
+                        {this.state.validPhone?null:<label style={{color:"red",float:"right"}}>Validation error!</label>}
                     </div>
                     :
                     <div>
@@ -88,10 +88,10 @@ class Form extends React.Component{
                                 onChange={this.handleChange}
                             />
                         </p>
-                        {this.state.validEmail?<label style={{color:"red",float:"right"}}>"Validation error!"</label>:null}
+                        {this.state.validEmail?null:<label style={{color:"red",float:"right"}}>Validation error!</label>}
                     </div>
                     }
-                <button onClick={()=>this.submitClick()}>Submit</button>
+                <button onClick={this.submitClick}>Submit</button>
                 </form>
             </div>
         )
