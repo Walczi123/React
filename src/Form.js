@@ -43,6 +43,7 @@ class Form extends React.Component{
                 this.setState({validPhone : false});
             }
         }
+        //e.preventDeafult();
     }
 
     render(){
@@ -91,7 +92,7 @@ class Form extends React.Component{
                         {this.state.validEmail?null:<label style={{color:"red",float:"right"}}>Validation error!</label>}
                     </div>
                     }
-                <button onClick={this.submitClick}>Submit</button>
+                <button type="button" onClick={this.submitClick} >Submit</button>
                 </form>
             </div>
         )
