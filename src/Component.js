@@ -1,6 +1,6 @@
 import React from 'react'
-import EmployeeList from './EmployeeList'
-import AddComponent from './AddComponent'
+import PageEmployeesList from './PageEmployeesList'
+import PageEmployee from './PageEmployee'
 
 class Companies extends React.Component {
     constructor(props) {
@@ -57,7 +57,7 @@ class Companies extends React.Component {
             {this.state.add ? 
             <div>
               <br/>
-              <AddComponent cancelAdd={this.cancelAdd} reload={this.componentGet}/>
+              <PageEmployee cancelAdd={this.cancelAdd} reload={this.componentGet}/>
             </div>
             :""
             }
@@ -65,7 +65,7 @@ class Companies extends React.Component {
             {this.state.isLoading ? <label>Loading...</label>:
               <div> Data loaded: 
               <br/>
-              <EmployeeList employee={this.state.employees} delete={this.componentDelete} delId={this.state.deleteId}/>
+              <PageEmployeesList employee={this.state.employees} delete={this.componentDelete} delId={this.state.deleteId}/>
               </div>
             }
           </div>
