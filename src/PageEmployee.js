@@ -33,7 +33,7 @@ class PageEmployee extends React.Component{
                 "email": this.state.email
               }),
         }).then(() => {this.setState({ isSaving: false })
-        }).then(()=>this.props.reload());
+        }).then(()=>this.props.history.push("/"));
         //console.log(request);
         //this.props.componentDidMount();
     }
