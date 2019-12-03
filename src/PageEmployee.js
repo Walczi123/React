@@ -1,4 +1,5 @@
 import React from 'react'
+import { withRouter } from "react-router-dom";
 
 class PageEmployee extends React.Component{
     constructor(props)
@@ -74,4 +75,4 @@ class PageEmployee extends React.Component{
         )
     }
 }
-export default PageEmployee
+export default withRouter(PageEmployee)

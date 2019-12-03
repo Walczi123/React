@@ -1,3 +1,4 @@
+import { withRouter } from "react-router-dom"
 import React from 'react'
 import PageEmployeesList from './PageEmployeesList'
 import PageEmployee from './PageEmployee'
@@ -72,4 +73,4 @@ class Companies extends React.Component {
         )
       }
 }
-export default Companies
+export default withRouter(Companies)
