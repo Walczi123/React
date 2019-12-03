@@ -1,5 +1,5 @@
 import React from 'react'
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 
 class PageEmployee extends React.Component{
     constructor(props)
@@ -68,7 +68,8 @@ class PageEmployee extends React.Component{
                 <input name="email"
                     onChange={this.handleChange}></input><br/><br/>
                 <button onClick={this.componentPost}>Submit</button>
-                <button onClick={this.props.cancelAdd}>Cancel</button>
+                <Link to="/"><button>Cancel</button></Link>
+                
                 </div>}
             </div>
         </div>        

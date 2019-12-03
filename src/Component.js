@@ -1,4 +1,4 @@
-import { withRouter } from "react-router-dom"
+import { withRouter, Link } from "react-router-dom"
 import React from 'react'
 import PageEmployeesList from './PageEmployeesList'
 import PageEmployee from './PageEmployee'
@@ -43,7 +43,7 @@ class Companies extends React.Component {
       }
 
       activeAdd(){
-        this.setState({add : true});
+        //this.setState({add : true});
       }
 
       cancelAdd(){
@@ -54,7 +54,7 @@ class Companies extends React.Component {
       {
         return(
           <div>
-            <button onClick={this.activeAdd}>Add employee</button>
+          <Link to="/new"><button>Add employee</button></Link>
             {this.state.add ? 
             <div>
               <br/>
