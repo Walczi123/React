@@ -1,7 +1,7 @@
 import { EMPLOYEES_LOADED } from './constants';
 import { EMPLOYEE_CREATED } from './constants';
-import { EMPLOYEE_LOADING } from './constants';
-import { EMPLOYEE_LOADING_ERROR } from './constants';
+import { EMPLOYEES_LOADING } from './constants';
+import { EMPLOYEES_LOADING_ERROR } from './constants';
 
 export const initialState = {
   employees: [],
@@ -25,10 +25,10 @@ const appReducer = (state = initialState, action) => {
         employees: [...state.employees, employee]
       }
     }
-    case EMPLOYEE_LOADING: {
+    case EMPLOYEES_LOADING: {
       return {...state, isLoading: true, error: null};
     }
-    case EMPLOYEE_LOADING_ERROR: {
+    case EMPLOYEES_LOADING_ERROR: {
       const error = action.payload;
       return {...state, isLoading: false, error};
     }
