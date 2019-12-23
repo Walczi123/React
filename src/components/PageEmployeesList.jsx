@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 
 import { loadEmployees } from '../redux/thunk-functions'
@@ -36,7 +36,7 @@ class PageEmployeesList extends React.Component {
   render() {
     // const { isLoading } = this.state;
     // const { employees } = this.props;
-    const { employees, isLoading } = this.props;
+    const { employees, isLoading, user } = this.props;
 
     if(isLoading) {
       return <p>Loading ...</p>
@@ -44,6 +44,9 @@ class PageEmployeesList extends React.Component {
     
     return (
       <div>
+        <div align="right">
+          <h3> Hi {user.full_name}!</h3>
+        </div>
         <h1>Employees List:</h1>
         {employees && employees.map((employee => <EmployeeLine key={employee.id} employee={employee} />))}
         <Link to="/new">
@@ -58,7 +61,8 @@ const mapStateToProps = (state /*, ownProps*/) => {
   return {
     employees: state.employees,
     alreadyLoaded: state.alreadyLoaded,
-    isLoading: state.isLoading
+    isLoading: state.isLoading,
+    user: state.user
   }
 }
 
@@ -70,4 +74,4 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(PageEmployeesList)
+)(withRouter(PageEmployeesList))

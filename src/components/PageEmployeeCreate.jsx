@@ -70,7 +70,7 @@ class PageEmployeeCreate extends React.Component {
         this.setState({ isSaving: false, error: `Saving returned status ${res.status}`})
       } else {
         this.props.employeeCreated(employee);
-        this.props.history.push("/");
+        this.props.history.push("/list");
       }
     })  
   }
