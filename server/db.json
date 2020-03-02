@@ -1,0 +1,100 @@
+{
+  "employees": [
+    {
+      "id": "5dc9bdc6fb9ede50b4c65fed",
+      "isActive": true,
+      "age": 21,
+      "name": "Ross Dickerson",
+      "company": "PROXSOFT",
+      "email": "rossdickerson@proxsoft.com"
+    },
+    {
+      "id": "5dc9bdc6485ccfcec093eb67",
+      "isActive": false,
+      "age": 25,
+      "name": "Mcdonald Hubbard",
+      "company": "PAPRICUT",
+      "email": "mcdonaldhubbard@papricut.com"
+    },
+    {
+      "id": "5dc9bdc6d54eb99cb821fb5f",
+      "isActive": false,
+      "age": 24,
+      "name": "Joyce West",
+      "company": "FANFARE",
+      "email": "joycewest@fanfare.com"
+    },
+    {
+      "id": "5dc9bdc64424815d04e10c50",
+      "isActive": true,
+      "age": 27,
+      "name": "Bettie Banks",
+      "company": "NSPIRE",
+      "email": "bettiebanks@nspire.com"
+    },
+    {
+      "id": "5dc9bdc68e268a789771e9da",
+      "isActive": false,
+      "age": 30,
+      "name": "Trudy Bauer",
+      "company": "COMTEXT",
+      "email": "trudybauer@comtext.com"
+    },
+    {
+      "id": "5dc9bdc6b62ea8498f1e2da4",
+      "isActive": true,
+      "age": 39,
+      "name": "Raquel Walter",
+      "company": "PROSURE",
+      "email": "raquelwalter@prosure.com"
+    },
+    {
+      "id": "5dc9bdc6759d1f047616ed7e",
+      "isActive": true,
+      "age": 34,
+      "name": "Beulah Michael",
+      "company": "EXOSIS",
+      "email": "beulahmichael@exosis.com"
+    },
+    {
+      "id": "5dc9bdc669395dcbe481c1b5",
+      "isActive": false,
+      "age": 38,
+      "name": "Sellers Morrow",
+      "company": "EXTREMO",
+      "email": "sellersmorrow@extremo.com"
+    },
+    {
+      "id": "5dc9bdc682e259cc7078b891",
+      "isActive": true,
+      "age": 34,
+      "name": "Marcia Pittman",
+      "company": "MANUFACT",
+      "email": "marciapittman@manufact.com"
+    },
+    {
+      "id": "5dc9bdc60e75c8f425dfe150",
+      "isActive": true,
+      "age": 23,
+      "name": "Silva Beasley",
+      "company": "ZILLAN",
+      "email": "silvabeasley@zillan.com"
+    },
+    {
+      "id": "5dc9bdc65720bf0a00dc0ca4",
+      "isActive": false,
+      "age": 39,
+      "name": "Rosanna Newman",
+      "company": "EXIAND",
+      "email": "rosannanewman@exiand.com"
+    },
+    {
+      "isActive": "true",
+      "age": "123",
+      "name": "aaaaaa",
+      "company": "bbbbbbb",
+      "email": "cccccc",
+      "id": "GaczRE3"
+    }
+  ]
+}
